@@ -6,27 +6,17 @@ using Core.Models;
 namespace Infrastructure.Config;
 
 /// <inheritdoc />
-public class FileSystemConfigService : IAppConfigService
+public class FileSystemConfigService(IJsonIoActions<AppConfig> jsonIoActions) : IAppConfigService
 {
     private AppConfig _config = new(
         0, "", 7727, 180
     );
 
+
     /// <inheritdoc />
     public void ReadConfig(string filePath)
     {
-        try
-        {
-            if (!File.Exists(filePath)) throw new Exception("Config: File does not exist");
-
-            var parsedConfig = JsonSerializer.Deserialize<AppConfig>(filePath, JsonSerializerOptions.Strict);
-
-            _config = parsedConfig ?? throw new Exception("Config: Invalid Configuration.");
-        }
-        catch (JsonException _)
-        {
-            throw new Exception("Config: Invalid Configuration.");
-        }
+        _config = jsonIoActions.ReadFile(filePath);
     }
 
     /// <inheritdoc />
@@ -40,23 +30,7 @@ public class FileSystemConfigService : IAppConfigService
             ["auth_timeout"] = 180
         };
 
-        try
-        {
-            using var fs = new FileStream(filePath, FileMode.CreateNew, FileAccess.Write);
-#pragma warning disable CA1869
-            var options = new JsonSerializerOptions
-#pragma warning restore CA1869
-            {
-                WriteIndented = true
-            };
-
-            JsonSerializer.Serialize(fs, data, options);
-            return true;
-        }
-        catch (IOException ex)
-        {
-            return false;
-        }
+        return jsonIoActions.GenerateFile(filePath, data);
     }
 
     /// <inheritdoc />
