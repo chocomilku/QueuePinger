@@ -16,8 +16,10 @@ public interface IAppConfigService
     /// <summary>
     /// Generates a blank configuration file
     /// </summary>
-    /// <param name="filePath">Relative/Absolute file path to generate a configuration file.</param>
-    void GenerateConfig(string filePath);
+    /// <param name="filePath">Relative/Absolute file path to generate a configuration file. This path MUST include the file name and format</param>
+    /// <example><c>config.json</c></example>
+    /// <returns>Boolean that returns if the file is successfully generated</returns>
+    bool GenerateConfig(string filePath);
 
     /// <summary>
     /// Returns the current internal AppConfig state.
