@@ -2,6 +2,5 @@
 
 public interface ITokenStore
 {
-    void SetBearerToken(string token);
-    string? GetBearerToken();
+    string? BearerToken { get; set; }
 }
