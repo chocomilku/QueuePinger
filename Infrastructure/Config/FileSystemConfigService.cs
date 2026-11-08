@@ -7,9 +7,7 @@ namespace Infrastructure.Config;
 /// <inheritdoc />
 public class FileSystemConfigService(IJsonIoActions<AppConfig> jsonIoActions) : IAppConfigService
 {
-    private AppConfig _config = new(
-        0, "", 7727, 180
-    );
+    private AppConfig? _config = null;
 
 
     /// <inheritdoc />
@@ -33,7 +31,7 @@ public class FileSystemConfigService(IJsonIoActions<AppConfig> jsonIoActions) : 
     }
 
     /// <inheritdoc />
-    public AppConfig GetConfig()
+    public AppConfig? GetConfig()
     {
         return _config;
     }

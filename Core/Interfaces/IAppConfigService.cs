@@ -25,5 +25,5 @@ public interface IAppConfigService
     /// Returns the current internal AppConfig state.
     /// </summary>
     /// <returns>AppConfig object of the latest config read.</returns>
-    AppConfig GetConfig();
+    AppConfig? GetConfig();
 }
