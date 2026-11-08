@@ -5,5 +5,5 @@ namespace Core.Models;
 public record MessageTemplate(
     [property: JsonPropertyName("name")] string Name,
     [property: JsonPropertyName("messages")]
-    LinkedList<string> MarkdownMessage
+    List<string> Messages
 );
