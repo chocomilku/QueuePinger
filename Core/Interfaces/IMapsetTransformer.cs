@@ -4,6 +4,6 @@ namespace Core.Interfaces;
 
 public interface IMapsetTransformer
 {
-    Mapset ResolveMapset(int onlineId);
+    MapsetSubmission ResolveMapset(SubmissionDetail submission);
     string? ParseMapsetLink(string rawMapsetLink);
 }
