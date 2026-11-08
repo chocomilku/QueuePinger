@@ -23,9 +23,10 @@ public record MapsetSubmission(
     int UserId
 )
 {
-    public MapsetSubmission(MapsetSubmission submission, Mapset mapset) : this(submission.MapsetLink, submission.Status,
-        submission.Remarks, mapset.OnlineId, mapset.Artist,
-        mapset.Title, mapset.Creator, mapset.UserId)
+    public MapsetSubmission(MapsetSubmission submission, Beatmapset beatmapset) : this(submission.MapsetLink,
+        submission.Status,
+        submission.Remarks, beatmapset.Id, beatmapset.Artist,
+        beatmapset.Title, beatmapset.Creator, beatmapset.UserId)
     {
     }
 }
