@@ -29,11 +29,11 @@ public partial class MapsetResolver(IOsuClient osuClient) : IMapsetResolver
         var match = BeatmapsetRegex().Match(rawMapsetLink);
         if (!match.Success) return null;
 
-        if (int.TryParse(match.Value.Split('/')[1], out var parsed))
+        if (int.TryParse(match.Groups["id"].Value, out var parsed))
             return parsed;
         else return null;
     }
 
-    [GeneratedRegex(@"beatmapsets\/(\d+)")]
+    [GeneratedRegex(@"beatmapsets\/(?<id>\d+)")]
     private static partial Regex BeatmapsetRegex();
 }
