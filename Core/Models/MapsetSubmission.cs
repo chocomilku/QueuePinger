@@ -16,7 +16,7 @@ public record MapsetSubmission(
     string MapsetLink,
     SubmissionStatus Status,
     string? Remarks,
-    int OnlineId,
+    int Id,
     string Artist,
     string Title,
     string Creator,
