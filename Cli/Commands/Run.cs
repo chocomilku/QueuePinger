@@ -61,7 +61,7 @@ internal class Run : AsyncCommand<Run.Settings>
             return 1;
         }
 
-        AnsiConsole.MarkupLine($"[green]Successfully read config file: {configValue}[/]");
+        AnsiConsole.MarkupLine($"[green]Successfully read config file: {Markup.Escape(configValue)}[/]");
 
         #endregion
 
@@ -69,7 +69,8 @@ internal class Run : AsyncCommand<Run.Settings>
 
         var templateValue = settings.Template.IsSet ? settings.Config.Value : "./template.json";
         var template = _templateService.ReadTemplate(Path.GetFullPath(templateValue));
-        AnsiConsole.MarkupLine($"[green]Successfully read template file: {template.Name} ({templateValue})[/]");
+        AnsiConsole.MarkupLine(
+            $"[green]Successfully read template file: {Markup.Escape(template.Name)} ({Markup.Escape(templateValue)})[/]");
 
         #endregion
 
@@ -80,7 +81,8 @@ internal class Run : AsyncCommand<Run.Settings>
         if (!validateCsv)
         {
             AnsiConsole.MarkupLine("[red]Some headers are missing.[/]");
-            foreach (var missingHeader in missingHeaders) AnsiConsole.MarkupLine($"    [green]•[/] {missingHeader}");
+            foreach (var missingHeader in missingHeaders)
+                AnsiConsole.MarkupLine($"    [green]•[/] {Markup.Escape(missingHeader)}");
             return 1;
         }
 
@@ -104,7 +106,7 @@ internal class Run : AsyncCommand<Run.Settings>
             AnsiConsole.MarkupLine("[red]Failed rows:[/]");
             foreach (var failedRecord in csvParseErrors)
                 AnsiConsole.MarkupLine(
-                    $"    [red]• {failedRecord.RowIndex}. {failedRecord.RawContent}[/]");
+                    $"    [red]• {failedRecord.RowIndex}. {Markup.Escape(failedRecord.RawContent)}[/]");
 
             AnsiConsole.MarkupLine("These records will be excluded.");
         }
@@ -115,7 +117,7 @@ internal class Run : AsyncCommand<Run.Settings>
 
         var oAuthGrant = _authService.GenerateOAuthGrant();
         AnsiConsole.MarkupLine("");
-        AnsiConsole.MarkupLine($"OAuth Grant Link: {oAuthGrant}");
+        AnsiConsole.MarkupLine($"OAuth Grant Link: {Markup.Escape(oAuthGrant)}");
         BrowserUtils.OpenBrowser(oAuthGrant);
 
 
@@ -168,7 +170,7 @@ internal class Run : AsyncCommand<Run.Settings>
             AnsiConsole.MarkupLine("[red]Failed submissions:[/]");
             foreach (var failedSubmission in failedSubmissions)
                 AnsiConsole.MarkupLine(
-                    $"    [red]• {failedSubmission.MapsetLink}[/]");
+                    $"    [red]• {Markup.Escape(failedSubmission.MapsetLink)}[/]");
 
             AnsiConsole.MarkupLine("These records will be excluded.");
         }
@@ -181,7 +183,7 @@ internal class Run : AsyncCommand<Run.Settings>
         AnsiConsole.MarkupLine("[green]Submissions:[/]");
         foreach (var submission in successfulSubmissions)
             AnsiConsole.MarkupLine(
-                $"    [green]• {submission.Artist} - {submission.Title} ({submission.Creator})[/]");
+                $"    [green]• {Markup.Escape(submission.Artist)} - {Markup.Escape(submission.Title)} ({Markup.Escape(submission.Creator)})[/]");
 
         if (!await AnsiConsole.ConfirmAsync("Is everything correct?", true, cancellationToken)) return 0;
 
@@ -197,7 +199,7 @@ internal class Run : AsyncCommand<Run.Settings>
             {
                 var submission = successfulSubmissions[i];
                 task.Description =
-                    $"({i + 1}/{successfulSubmissions.Count}): {submission.Artist} - {submission.Title} ({submission.Creator}) ";
+                    $"({i + 1}/{successfulSubmissions.Count}): {Markup.Escape(submission.Artist)} - {Markup.Escape(submission.Title)} ({Markup.Escape(submission.Creator)}) ";
                 task.Increment(1);
 
                 var resolvedSubmission = _messagingService.ResolveTemplateToMessage(template, submission);
