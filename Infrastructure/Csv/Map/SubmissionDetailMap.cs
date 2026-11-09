@@ -17,6 +17,9 @@ internal partial class SubmissionDetailMap
 
     private static bool IsValidLink(string link)
     {
-        return Regex.IsMatch(@"beatmapsets\/(\d+)", link);
+        return BeatmapsetRegex().IsMatch(link);
     }
+
+    [GeneratedRegex(@"beatmapsets\/(\d+)")]
+    private static partial Regex BeatmapsetRegex();
 }
