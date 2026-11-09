@@ -1,4 +1,4 @@
-﻿namespace Console.CommandRegistrar;
+﻿namespace Cli.CommandRegistrar;
 
 public interface ITypeRegistrar
 {

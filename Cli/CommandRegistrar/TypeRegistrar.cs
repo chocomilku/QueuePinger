@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Console.CommandRegistrar;
+namespace Cli.CommandRegistrar;
 
 public class TypeRegistrar(IServiceCollection services) : ITypeRegistrar
 {
