@@ -14,12 +14,15 @@ public class JsonIoActions<T>(string? identifier) : IJsonIoActions<T>
         {
             if (!File.Exists(filePath)) throw new Exception($"{_identifier}: File does not exist");
 
-            var parsedFile = JsonSerializer.Deserialize<T>(filePath, JsonSerializerOptions.Strict);
+            using var stream = File.OpenRead(filePath);
+
+            var parsedFile = JsonSerializer.Deserialize<T>(stream, JsonSerializerOptions.Web);
 
             return parsedFile ?? throw new Exception($"{_identifier}: Invalid File.");
         }
-        catch (JsonException)
+        catch (JsonException e)
         {
+            Console.WriteLine(e.Message);
             throw new Exception("Config: Invalid Configuration.");
         }
     }
