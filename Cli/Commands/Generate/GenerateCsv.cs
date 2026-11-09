@@ -8,7 +8,7 @@ namespace Cli.Commands.Generate;
 
 internal class GenerateCsv : Command<GenerateCsv.Settings>
 {
-    private ICsvParserService<SubmissionDetail> _parserService;
+    private readonly ICsvParserService<SubmissionDetail> _parserService;
 
     public GenerateCsv(ICsvParserService<SubmissionDetail> parserService)
     {

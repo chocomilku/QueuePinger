@@ -77,7 +77,7 @@ app.Configure(config =>
     // exception
     config.SetExceptionHandler((ex, resolver) =>
     {
-        AnsiConsole.WriteException(ex, ExceptionFormats.Default);
+        AnsiConsole.WriteException(ex);
 
         return ex switch
         {

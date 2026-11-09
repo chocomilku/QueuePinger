@@ -31,7 +31,7 @@ public partial class MapsetResolver(IOsuClient osuClient) : IMapsetResolver
 
         if (int.TryParse(match.Groups["id"].Value, out var parsed))
             return parsed;
-        else return null;
+        return null;
     }
 
     [GeneratedRegex(@"beatmapsets\/(?<id>\d+)")]

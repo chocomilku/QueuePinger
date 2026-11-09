@@ -7,7 +7,7 @@ namespace Infrastructure.Config;
 /// <inheritdoc />
 public class FileSystemConfigService(IJsonIoActions<AppConfig> jsonIoActions) : IAppConfigService
 {
-    private AppConfig? _config = null;
+    private AppConfig? _config;
 
 
     /// <inheritdoc />

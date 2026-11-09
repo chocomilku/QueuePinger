@@ -22,7 +22,7 @@ public class OsuClient(IHttpClientFactory httpClientFactory) : IOsuClient
     {
         var client = _httpClientFactory.CreateClient("OsuClient");
 
-        var response = await client.PostAsJsonAsync($"api/v2/chat/new", new PmRequestBody(userId, message));
+        var response = await client.PostAsJsonAsync("api/v2/chat/new", new PmRequestBody(userId, message));
 
         response.EnsureSuccessStatusCode();
     }

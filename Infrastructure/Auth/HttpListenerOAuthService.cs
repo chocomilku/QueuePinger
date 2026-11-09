@@ -10,9 +10,8 @@ namespace Infrastructure.Auth;
 
 public class HttpListenerOAuthService(IHttpClientFactory httpClientFactory, IAppConfigService appConfig) : IOAuthService
 {
-    private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
-
     private readonly IAppConfigService _appConfig = appConfig;
+    private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
 
     private AppConfig Config =>
         _appConfig.GetConfig() ?? throw new InvalidOperationException("OAuthService: Config is empty.");

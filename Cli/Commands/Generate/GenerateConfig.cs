@@ -7,7 +7,7 @@ namespace Cli.Commands.Generate;
 
 internal class GenerateConfig : Command<GenerateConfig.Settings>
 {
-    private IAppConfigService _fileConfigService;
+    private readonly IAppConfigService _fileConfigService;
 
     public GenerateConfig(IAppConfigService fileConfigService)
     {

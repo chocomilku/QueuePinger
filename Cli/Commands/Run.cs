@@ -9,13 +9,13 @@ namespace Cli.Commands;
 
 internal class Run : AsyncCommand<Run.Settings>
 {
-    private readonly IAppConfigService _fileConfigService;
-    private readonly ITemplateService _templateService;
-    private readonly ICsvParserService<SubmissionDetail> _parserService;
     private readonly IOAuthService _authService;
-    private readonly ITokenStore _tokenStore;
+    private readonly IAppConfigService _fileConfigService;
     private readonly IMapsetResolver _mapsetResolver;
     private readonly IMessagingService _messagingService;
+    private readonly ICsvParserService<SubmissionDetail> _parserService;
+    private readonly ITemplateService _templateService;
+    private readonly ITokenStore _tokenStore;
 
     public Run(IAppConfigService fileConfigService, ITemplateService templateService,
         ICsvParserService<SubmissionDetail> parserService, IOAuthService authService, ITokenStore tokenStore,
@@ -57,7 +57,7 @@ internal class Run : AsyncCommand<Run.Settings>
         var config = _fileConfigService.GetConfig();
         if (config is null)
         {
-            AnsiConsole.MarkupLine($"[red]Error reading config file.[/]");
+            AnsiConsole.MarkupLine("[red]Error reading config file.[/]");
             return 1;
         }
 
@@ -79,7 +79,7 @@ internal class Run : AsyncCommand<Run.Settings>
         var (validateCsv, missingHeaders) = _parserService.ValidateHeaders(resolvedFile);
         if (!validateCsv)
         {
-            AnsiConsole.MarkupLine($"[red]Some headers are missing.[/]");
+            AnsiConsole.MarkupLine("[red]Some headers are missing.[/]");
             foreach (var missingHeader in missingHeaders) AnsiConsole.MarkupLine($"    [green]•[/] {missingHeader}");
             return 1;
         }
@@ -95,18 +95,18 @@ internal class Run : AsyncCommand<Run.Settings>
             {
                 var csvParse = _parserService.Parse(resolvedFile);
 
-                AnsiConsole.MarkupLine($"[green]Finished Parsing Csv File.[/]");
+                AnsiConsole.MarkupLine("[green]Finished Parsing Csv File.[/]");
                 return csvParse;
             });
 
         if (csvParseErrors.Count != 0)
         {
-            AnsiConsole.MarkupLine($"[red]Failed rows:[/]");
+            AnsiConsole.MarkupLine("[red]Failed rows:[/]");
             foreach (var failedRecord in csvParseErrors)
                 AnsiConsole.MarkupLine(
                     $"    [red]• {failedRecord.RowIndex}. {failedRecord.RawContent}[/]");
 
-            AnsiConsole.MarkupLine($"These records will be excluded.");
+            AnsiConsole.MarkupLine("These records will be excluded.");
         }
 
         #endregion
@@ -129,7 +129,7 @@ internal class Run : AsyncCommand<Run.Settings>
                 ctx.Status("Exchanging to token...");
                 var token = await _authService.ExchangeToToken(code);
 
-                AnsiConsole.MarkupLine($"[green]Successfully Authenticated[/]");
+                AnsiConsole.MarkupLine("[green]Successfully Authenticated[/]");
                 _tokenStore.BearerToken = token.AccessToken;
 
                 return token;
@@ -140,7 +140,7 @@ internal class Run : AsyncCommand<Run.Settings>
         #region Resolve Submissions
 
         AnsiConsole.MarkupLine("");
-        AnsiConsole.MarkupLine($"[yellow]Resolving Submissions[/]");
+        AnsiConsole.MarkupLine("[yellow]Resolving Submissions[/]");
         List<MapsetSubmission> successfulSubmissions = [];
         List<SubmissionDetail> failedSubmissions = [];
 
@@ -162,15 +162,15 @@ internal class Run : AsyncCommand<Run.Settings>
                 }
             });
 
-        AnsiConsole.MarkupLine($"[green]Resolving Complete![/]");
+        AnsiConsole.MarkupLine("[green]Resolving Complete![/]");
         if (failedSubmissions.Count != 0)
         {
-            AnsiConsole.MarkupLine($"[red]Failed submissions:[/]");
+            AnsiConsole.MarkupLine("[red]Failed submissions:[/]");
             foreach (var failedSubmission in failedSubmissions)
                 AnsiConsole.MarkupLine(
                     $"    [red]• {failedSubmission.MapsetLink}[/]");
 
-            AnsiConsole.MarkupLine($"These records will be excluded.");
+            AnsiConsole.MarkupLine("These records will be excluded.");
         }
 
         #endregion
@@ -178,7 +178,7 @@ internal class Run : AsyncCommand<Run.Settings>
         #region Confirmation
 
         AnsiConsole.MarkupLine("");
-        AnsiConsole.MarkupLine($"[green]Submissions:[/]");
+        AnsiConsole.MarkupLine("[green]Submissions:[/]");
         foreach (var submission in successfulSubmissions)
             AnsiConsole.MarkupLine(
                 $"    [green]• {submission.Artist} - {submission.Title} ({submission.Creator})[/]");
@@ -209,7 +209,7 @@ internal class Run : AsyncCommand<Run.Settings>
 
         #endregion
 
-        AnsiConsole.MarkupLine($"[green]Successfully Sent Messages![/]");
+        AnsiConsole.MarkupLine("[green]Successfully Sent Messages![/]");
 
         return 0;
     }

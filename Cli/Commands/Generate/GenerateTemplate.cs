@@ -7,7 +7,7 @@ namespace Cli.Commands.Generate;
 
 internal class GenerateTemplate : Command<GenerateTemplate.Settings>
 {
-    private ITemplateService _templateService;
+    private readonly ITemplateService _templateService;
 
     public GenerateTemplate(ITemplateService templateService)
     {

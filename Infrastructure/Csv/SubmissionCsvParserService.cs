@@ -13,7 +13,7 @@ public class SubmissionCsvParserService : ICsvParserService<SubmissionDetail>
             using var fs = new FileStream(filePath, FileMode.CreateNew, FileAccess.Write);
             using var stream = new StreamWriter(fs);
             using var csv = CsvWriter.Create(stream);
-            csv.WriteHeader(["Link", "Status", "Remarks"]);
+            csv.WriteHeader("Link", "Status", "Remarks");
 
             return true;
         }
