@@ -3,3 +3,8 @@ obj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
+
+# config files
+config.json
+list.csv
+template.json
