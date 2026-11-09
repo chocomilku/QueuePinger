@@ -17,7 +17,7 @@ internal class GenerateConfig : Command<GenerateConfig.Settings>
     public class Settings : CommandSettings
     {
         [Description("The folder where to generate the config file.")]
-        [CommandArgument(0, "<dir>")]
+        [CommandArgument(0, "[dir]")]
         public string Directory { get; init; } = ".";
     }
 

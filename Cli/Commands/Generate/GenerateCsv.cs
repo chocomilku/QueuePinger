@@ -18,7 +18,7 @@ internal class GenerateCsv : Command<GenerateCsv.Settings>
     public class Settings : CommandSettings
     {
         [Description("The folder where to generate the CSV file.")]
-        [CommandArgument(0, "<dir>")]
+        [CommandArgument(0, "[dir]")]
         public string Directory { get; init; } = ".";
     }
 
