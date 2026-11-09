@@ -33,7 +33,7 @@ services.AddHttpClient("OsuOAuthClient", client =>
     client.BaseAddress = new Uri("https://osu.ppy.sh");
     client.DefaultRequestHeaders.Add("Accept", "application/json");
 });
-services.AddSingleton<IOAuthService, MinimalApiOAuthService>();
+services.AddSingleton<IOAuthService, HttpListenerOAuthService>();
 
 // api
 services.AddTransient<AuthHeaderHandler>();
