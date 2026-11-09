@@ -1,4 +1,5 @@
 ﻿using Cli.CommandRegistrar;
+using Cli.Commands;
 using Cli.Commands.Generate;
 using Core.Interfaces;
 using Core.Models;
@@ -70,10 +71,13 @@ app.Configure(config =>
         generate.AddCommand<GenerateCsv>("csv");
     });
 
+    config.AddCommand<Run>("run");
+
+
     // exception
     config.SetExceptionHandler((ex, resolver) =>
     {
-        AnsiConsole.WriteException(ex, ExceptionFormats.NoStackTrace);
+        AnsiConsole.WriteException(ex, ExceptionFormats.Default);
 
         return ex switch
         {
