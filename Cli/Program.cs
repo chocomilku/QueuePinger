@@ -61,6 +61,10 @@ app.Configure(config =>
     config.AddBranch("generate", generate =>
     {
         generate.SetDescription("Generate configuration files");
+        generate.AddExample("config");
+        generate.AddExample("template", ".");
+        generate.AddExample("csv", "./input");
+
         generate.AddCommand<GenerateConfig>("config");
         generate.AddCommand<GenerateTemplate>("template");
         generate.AddCommand<GenerateCsv>("csv");
