@@ -16,8 +16,8 @@ internal class GenerateConfig : Command<GenerateConfig.Settings>
 
     public class Settings : CommandSettings
     {
-        [CommandArgument(0, "<dir>")]
         [Description("The folder where to generate the config file.")]
+        [CommandArgument(0, "<dir>")]
         public string Directory { get; init; } = ".";
     }
 
@@ -33,11 +33,11 @@ internal class GenerateConfig : Command<GenerateConfig.Settings>
 
         if (!success)
         {
-            AnsiConsole.MarkupLine("[red]Error generating config.json[/]");
+            AnsiConsole.MarkupLine($"[red]Error generating {fileName}[/]");
             return 1;
         }
 
-        AnsiConsole.MarkupLine("[green]Generated config.json successfully![/]");
+        AnsiConsole.MarkupLine($"[green]Generated {fileName} successfully![/]");
         return 0;
     }
 }

@@ -62,6 +62,8 @@ app.Configure(config =>
     {
         generate.SetDescription("Generate configuration files");
         generate.AddCommand<GenerateConfig>("config");
+        generate.AddCommand<GenerateTemplate>("template");
+        generate.AddCommand<GenerateCsv>("csv");
     });
 
     // exception
