@@ -18,13 +18,12 @@ public class OsuClient(IHttpClientFactory httpClientFactory) : IOsuClient
         return await response.Content.ReadFromJsonAsync<Beatmapset>() ?? throw new InvalidOperationException();
     }
 
-    public async Task<PmResponse> SendToUser(int userId, string message)
+    public async Task SendToUser(int userId, string message)
     {
         var client = _httpClientFactory.CreateClient("OsuClient");
 
         var response = await client.PostAsJsonAsync($"api/v2/chat/new", new PmRequestBody(userId, message));
 
         response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<PmResponse>() ?? throw new InvalidOperationException();
     }
 }
