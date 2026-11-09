@@ -1,4 +1,6 @@
-﻿namespace Cli.CommandRegistrar;
+﻿using Spectre.Console.Cli;
+
+namespace Cli.CommandRegistrar;
 
 public sealed class TypeResolver(IServiceProvider provider) : ITypeResolver
 {
