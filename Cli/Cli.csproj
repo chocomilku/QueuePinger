@@ -16,7 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Commands\"/>
+        <ProjectReference Include="..\Core\Core.csproj"/>
     </ItemGroup>
 
 </Project>
