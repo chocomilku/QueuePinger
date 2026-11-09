@@ -31,7 +31,7 @@ public class SubmissionCsvParserService : ICsvParserService<SubmissionDetail>
 
             var checkHeaders = reader.TryValidateHeader<SubmissionDetail>(out var missingColumns);
 
-            return !checkHeaders ? (false, []) : (checkHeaders, missingColumns);
+            return !checkHeaders ? (false, missingColumns) : (checkHeaders, []);
         }
         catch (InvalidOperationException)
         {
